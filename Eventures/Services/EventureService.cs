@@ -7,27 +7,27 @@ using System.Linq;
 
 namespace Eventures.Services
 {
-    public class EventService : IEventService
+    public class EventureService : IEventuresService
     {
         private readonly ApplicationDbContext context;
 
-        public EventService(ApplicationDbContext context)
+        public EventureService(ApplicationDbContext context)
         {
             this.context = context;
         }
         public bool Create(string name, string place, DateTime start, DateTime end, int totalTickets, double pricePerTicket)
         {
-            Event item = new Event { Name = name, Place = place, Start = start, End = end, TotalTickets = totalTickets, PricePerTicket = pricePerTicket };
+            Domain.Eventure item = new Domain.Eventure { Name = name, Place = place, Start = start, End = end, TotalTickets = totalTickets, PricePerTicket = pricePerTicket };
             context.Events.Add(item);
             return context.SaveChanges() != 0;
         }
 
-        public Event GetEventById(int id)
+        public Domain.Eventure GetEventById(int id)
         {
             return context.Events.Find(id);
         }
 
-        public List<Event> GetEvents()
+        public List<Domain.Eventure> GetEvents()
         {
             return context.Events.ToList();
         }
@@ -35,7 +35,7 @@ namespace Eventures.Services
         public bool RemoveById(int id)
         {
             var item = context.Events.Find(id);
-            if (item == default(Event))
+            if (item == default(Domain.Eventure))
             {
                 return false;
             }
@@ -46,7 +46,7 @@ namespace Eventures.Services
         public bool Update(int id, string name, string place, DateTime start, DateTime end, int totalTickets, double pricePerTicket)
         {
             var item = context.Events.Find(id);
-            if (item == default(Event))
+            if (item == default(Domain.Eventure))
             {
                 return false;
             }

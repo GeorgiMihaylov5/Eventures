@@ -14,10 +14,10 @@ namespace Eventures.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class LogoutModel : PageModel
     {
-        private readonly SignInManager<EventUser> _signInManager;
+        private readonly SignInManager<EventuresUser> _signInManager;
         private readonly ILogger<LogoutModel> _logger;
 
-        public LogoutModel(SignInManager<EventUser> signInManager, ILogger<LogoutModel> logger)
+        public LogoutModel(SignInManager<EventuresUser> signInManager, ILogger<LogoutModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;

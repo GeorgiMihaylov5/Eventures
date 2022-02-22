@@ -1,6 +1,7 @@
 using Eventures.Abstraction;
 using Eventures.Data;
 using Eventures.Domain;
+using Eventures.Infrastructure;
 using Eventures.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,12 +36,16 @@ namespace Eventures
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddIdentity<EventUser, IdentityRole>()
+            //services.AddIdentity<EventuresUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<ApplicationDbContext>()
+            //    .AddDefaultTokenProviders();
+            services.AddDefaultIdentity<EventuresUser>(x => x.SignIn.RequireConfirmedEmail = false)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddTransient<IEventService, EventService>();
+            services.AddTransient<IEventuresService, EventureService>();
 
             //services.AddMvc();
 
@@ -60,6 +65,7 @@ namespace Eventures
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.PrepareDatabase();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

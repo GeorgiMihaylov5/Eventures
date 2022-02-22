@@ -7,13 +7,13 @@ using System.Text;
 
 namespace Eventures.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<EventUser>
+    public class ApplicationDbContext : IdentityDbContext<EventuresUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
             this.Database.EnsureCreated();
         }
-        public DbSet<Event> Events { get; set; }
+        public DbSet<Eventure> Events { get; set; }
     }
 }

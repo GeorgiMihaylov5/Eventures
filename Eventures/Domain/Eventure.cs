@@ -2,7 +2,7 @@
 
 namespace Eventures.Domain
 {
-    public class Event
+    public class Eventure
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -11,7 +11,7 @@ namespace Eventures.Domain
         public DateTime End { get; set; }
         public int TotalTickets { get; set; }
         public double PricePerTicket { get; set; }
-        public EventUser Owner { get; set; }
+        public EventuresUser Owner { get; set; }
         public string OwnerId { get; set; }
     }
 }

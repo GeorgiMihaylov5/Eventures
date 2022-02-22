@@ -20,13 +20,13 @@ namespace Eventures.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<EventUser> _signInManager;
-        private readonly UserManager<EventUser> _userManager;
+        private readonly SignInManager<EventuresUser> _signInManager;
+        private readonly UserManager<EventuresUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
 
         public RegisterModel(
-            UserManager<EventUser> userManager,
-            SignInManager<EventUser> signInManager,
+            UserManager<EventuresUser> userManager,
+            SignInManager<EventuresUser> signInManager,
             ILogger<RegisterModel> logger)
         {
             _userManager = userManager;
@@ -82,7 +82,7 @@ namespace Eventures.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new EventUser { UserName = Input.Username, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.LastName };
+                var user = new EventuresUser { UserName = Input.Username, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.LastName };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

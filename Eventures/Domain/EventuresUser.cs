@@ -2,7 +2,7 @@
 
 namespace Eventures.Domain
 {
-    public class EventUser : IdentityUser
+    public class EventuresUser : IdentityUser
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

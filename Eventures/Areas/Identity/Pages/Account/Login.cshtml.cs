@@ -18,13 +18,13 @@ namespace Eventures.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
-        private readonly UserManager<EventUser> _userManager;
-        private readonly SignInManager<EventUser> _signInManager;
+        private readonly UserManager<EventuresUser> _userManager;
+        private readonly SignInManager<EventuresUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<EventUser> signInManager, 
+        public LoginModel(SignInManager<EventuresUser> signInManager, 
             ILogger<LoginModel> logger,
-            UserManager<EventUser> userManager)
+            UserManager<EventuresUser> userManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;

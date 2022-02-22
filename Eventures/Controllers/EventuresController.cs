@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Eventures.Controllers
 {
-    public class EventsController : Controller
+    public class EventuresController : Controller
     {
-        private readonly IEventService service;
+        private readonly IEventuresService service;
 
-        public EventsController(IEventService service)
+        public EventuresController(IEventuresService service)
         {
             this.service = service;
         }
@@ -21,7 +21,7 @@ namespace Eventures.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Event item)
+        public IActionResult Create(Eventure item)
         {
             if (ModelState.IsValid)
             {
