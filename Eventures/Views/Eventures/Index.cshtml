@@ -1,5 +1,5 @@
 ﻿@using Eventures.Domain
-@model IEnumerable<Eventure>
+@model IEnumerable<EventAllViewModel>
 
 @{
     ViewData["Title"] = "All";
@@ -23,10 +23,10 @@
                 @Html.DisplayNameFor(model => model.End)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TotalTickets)
+                Action
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PricePerTicket)
+
             </th>
             <th></th>
         </tr>
@@ -39,25 +39,19 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Place)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Start)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.End)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TotalTickets)
+                @Html.DisplayFor(modelItem => item.Place)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PricePerTicket)
-            </td>
-
-            <td>
-                <a asp-action="Edit" asp-controller="Dogs" asp-route-id="@item.Id">Edit</a>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+               @await Html.PartialAsync("_OrderPartial", new OrderCreateBindingModel
+          {
+              EventId = item.Id
+          })
             </td>
 
         </tr>

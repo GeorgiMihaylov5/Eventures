@@ -15,5 +15,6 @@ namespace Eventures.Data
             this.Database.EnsureCreated();
         }
         public DbSet<Eventure> Events { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }

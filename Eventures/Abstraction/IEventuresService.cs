@@ -8,7 +8,7 @@ namespace Eventures.Abstraction
     {
         bool Create(string name, string place, DateTime start, DateTime end, int totalTickets, double pricePerTicket);
         bool Update(int id, string name, string place, DateTime start, DateTime end, int totalTickets, double pricePerTicket);
-        List<Eventure> GetEvents();
+        List<Eventure> GetEvents(string searchString);
         Eventure GetEventById(int id);
         bool RemoveById(int id);
     }

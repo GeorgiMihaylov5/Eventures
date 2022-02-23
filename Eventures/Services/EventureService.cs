@@ -1,8 +1,10 @@
 ﻿using Eventures.Abstraction;
 using Eventures.Data;
 using Eventures.Domain;
+using Eventures.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace Eventures.Services
@@ -27,9 +29,24 @@ namespace Eventures.Services
             return context.Events.Find(id);
         }
 
-        public List<Domain.Eventure> GetEvents()
+        public List<Eventure> GetEvents(string searchString)
         {
-            return context.Events.ToList();
+            //List<EventAllViewModel> events = context.Events
+            //    .Select(x => new Eventure
+            //    {
+            //        Id = x.Id,
+            //        Name = x.Name,
+            //        Place = x.Place,
+            //        Start = x.Start.ToString("dd-mm-yyyy hh:mm", CultureInfo.InvariantCulture),
+            //        End = x.End.ToString("dd-mm-yyyy hh:mm", CultureInfo.InvariantCulture),
+            //        Owner = x.Owner.UserName
+            //    }).ToList();
+
+            //if (!String.IsNullOrEmpty(searchString))
+            //{
+            //    events = events.Where(x => x.Place.Contains(searchString)).ToList();
+            //}
+            return null;
         }
 
         public bool RemoveById(int id)
