@@ -1,15 +1,18 @@
 ﻿using Eventures.Data;
 using Eventures.Domain;
 using Eventures.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Eventures.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly ApplicationDbContext context;
@@ -19,7 +22,17 @@ namespace Eventures.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            List<OrderListingViewModel> orders = context
+                 .Orders
+                 .Select(x => new OrderListingViewModel
+                 {
+                     EventName = x.Eventure.Name,
+                     OrderedOn = x.OrderedOn.ToString("dd-mm-yyyy hh:mm", CultureInfo.InvariantCulture),
+                     CustomerUsername = x.Customer.UserName,
+                     TicketsCount = x.TicketsCount
+                 }).ToList();
+
+            return View(orders);
         }
         public IActionResult Create(OrderCreateBindingModel model)
         {
@@ -32,12 +45,12 @@ namespace Eventures.Controllers
 
                 if (user == null || ev == null || ev.TotalTickets < model.TIcketsCount)
                 {
-                    return RedirectToAction("All", "Events");
+                    return RedirectToAction("Index", "Eventures");
                 }
                 Order orderForDb = new Order
                 {
                     OrderedOn = DateTime.UtcNow,
-                    EventId = model.EventId,
+                    EventureId = model.EventId,
                     TicketsCount = model.TIcketsCount,
                     CustomerId = userId
                 };
@@ -48,7 +61,7 @@ namespace Eventures.Controllers
                 context.Orders.Add(orderForDb);
                 context.SaveChanges();
             }
-            return RedirectToAction("All", "Events");
+            return RedirectToAction("Index", "Eventures");
         }
     }
 }
