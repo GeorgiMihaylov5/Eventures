@@ -1,0 +1,72 @@
+﻿@using Eventures.Domain
+@model IEnumerable<UserListingViewModel>
+
+@{
+    ViewData["Title"] = "All Users";
+}
+
+<h1>All Users</h1>
+
+<form asp-controller="EventureUsers"  asp-action="Index" method="get">
+
+</form>
+
+<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsAdmin)
+            </th>
+            <th>
+                Actions
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @item.FistName @item.LastName
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsAdmin)
+                </td>   
+                <td>
+                    @if (item.UserName == "admin")
+                    {
+                        <form asp-action="Promote" asp-controller="EventureUsers" method="post">
+                            <input type="hidden" name="userId" value="@item.Id" />
+                        </form>
+                    }
+                    else if (!item.IsAdmin)
+                    {
+                        <form asp-action="Promote" asp-controller="EventureUsers" method="post">
+                            <input type="hidden" name="userId" value="@item.Id" />
+                            <button type="submit" class="btn btn-success">Promote</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-action="Demote" asp-controller="EventureUsers" method="post">
+                            <input type="hidden" name="userId" value="@item.Id" />
+                            <button type="submit" class="btn btn-danger">Demote</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+</table>

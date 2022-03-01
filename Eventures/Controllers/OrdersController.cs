@@ -20,8 +20,29 @@ namespace Eventures.Controllers
         {
             this.context = _context;
         }
+        public IActionResult My()
+        {
+            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = context.Users.SingleOrDefault(u => u.Id == userId);
+
+            List<OrderListingViewModel> orders = context
+                 .Orders
+                 .Select(x => new OrderListingViewModel
+                 {
+                     EventName = x.Eventure.Name,
+                     OrderedOn = x.OrderedOn.ToString("dd-mm-yyyy hh:mm", CultureInfo.InvariantCulture),
+                     CustomerUsername = x.Customer.UserName,
+                     TicketsCount = x.TicketsCount
+                 }).Where(x => x.CustomerUsername == user.UserName).ToList();
+
+            return View("Index", orders);
+        }
+        [Authorize(Roles = "Administrator")]
         public IActionResult Index()
         {
+            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = context.Users.SingleOrDefault(u => u.Id == userId);
+
             List<OrderListingViewModel> orders = context
                  .Orders
                  .Select(x => new OrderListingViewModel
